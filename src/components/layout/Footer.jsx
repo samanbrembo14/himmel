@@ -132,16 +132,16 @@ const Footer = () => {
               <Typography variant="h6" sx={{ mb: 2, color: 'white' }}>
                 Tentang Anime
               </Typography>
-              <Link href="#" underline="none" sx={{ display: 'block', mb: 1, color: 'rgba(255,255,255,0.7)', '&:hover': { color: theme.palette.primary.light } }}>
+              <Link href="https://myanimelist.net/anime/52991/Sousou_no_Frieren?quot=" underline="none" sx={{ display: 'block', mb: 1, color: 'rgba(255,255,255,0.7)', '&:hover': { color: theme.palette.primary.light } }}>
                 Frieren: Beyond Journey's End
               </Link>
-              <Link href="#" underline="none" sx={{ display: 'block', mb: 1, color: 'rgba(255,255,255,0.7)', '&:hover': { color: theme.palette.primary.light } }}>
+              <Link href="https://frieren.fandom.com/wiki/List_of_Characters" underline="none" sx={{ display: 'block', mb: 1, color: 'rgba(255,255,255,0.7)', '&:hover': { color: theme.palette.primary.light } }}>
                 Karakter Lainnya
               </Link>
-              <Link href="#" underline="none" sx={{ display: 'block', mb: 1, color: 'rgba(255,255,255,0.7)', '&:hover': { color: theme.palette.primary.light } }}>
+              <Link href="https://myanimelist.net/anime/producer/11/Madhouse" underline="none" sx={{ display: 'block', mb: 1, color: 'rgba(255,255,255,0.7)', '&:hover': { color: theme.palette.primary.light } }}>
                 Studio Madhouse
               </Link>
-              <Link href="#" underline="none" sx={{ display: 'block', mb: 1, color: 'rgba(255,255,255,0.7)', '&:hover': { color: theme.palette.primary.light } }}>
+              <Link href="https://frieren.fandom.com/wiki/Frieren:_Beyond_Journey%27s_End_(Manga)" underline="none" sx={{ display: 'block', mb: 1, color: 'rgba(255,255,255,0.7)', '&:hover': { color: theme.palette.primary.light } }}>
                 Manga Original
               </Link>
             </motion.div>
@@ -179,7 +179,7 @@ const Footer = () => {
           }}
         >
           <Typography variant="body2" sx={{ mb: { xs: 2, sm: 0 } }}>
-            © {new Date().getFullYear()} Himmel Fansite. Dibuat dengan ❤️ oleh penggemar untuk penggemar.
+            © {new Date().getFullYear()} Himmel Fansite. Dibuat oleh Alwi Arfan untuk penggemar.
           </Typography>
           <motion.div
             whileHover={{ scale: 1.1 }}
