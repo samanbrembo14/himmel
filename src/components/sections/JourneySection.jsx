@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Box, Container, Typography, Stepper, Step, StepLabel, StepContent, Paper, useTheme, useMediaQuery } from '@mui/material';
 import { motion } from 'framer-motion';
-import { journeyTimeline } from '../../data/himmelData';
+import { journeyTimeline } from '../../data/HimmelData';
 
 const JourneySection = () => {
   const theme = useTheme();
