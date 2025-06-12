@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, Container, Typography, Grid, Paper, useTheme } from '@mui/material';
+import { Box, Container, Typography, Grid, Paper, useTheme, useMediaQuery } from '@mui/material';
 import { motion } from 'framer-motion';
 
 const ProfileSection = () => {
   const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const sectionRef = useRef(null);
   
   useEffect(() => {
@@ -37,6 +38,7 @@ const ProfileSection = () => {
         backgroundImage: 'url("/images/backgrounds/profile-bg.jpeg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundAttachment: { xs: 'scroll', md: 'fixed' }, // Disable fixed background on mobile
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -44,7 +46,7 @@ const ProfileSection = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(248, 249, 250, 0.6)',
+          backgroundColor: 'rgba(248, 249, 250, 0.4)',
           backdropFilter: 'blur(2px)',
           zIndex: 0,
         },
@@ -90,7 +92,16 @@ const ProfileSection = () => {
         }} 
       />
       
-      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+      {/* Content container with center-alignment for desktop */}
+      <Container 
+        maxWidth="lg" 
+        sx={{ 
+          position: 'relative', 
+          zIndex: 1,
+          maxWidth: isDesktop ? '1100px' : 'auto',
+          mx: 'auto'
+        }}
+      >
         <Box textAlign="center" mb={8} className="scroll-hidden">
           <Typography 
             variant="h2" 
@@ -110,7 +121,7 @@ const ProfileSection = () => {
           </Typography>
         </Box>
         
-        <Grid container spacing={5} alignItems="center">
+        <Grid container spacing={5} alignItems="center" justifyContent="center">
           <Grid item xs={12} md={6}>
             <Box className="scroll-hidden">
               <Paper 
@@ -119,7 +130,9 @@ const ProfileSection = () => {
                   borderRadius: '20px',
                   overflow: 'hidden',
                   boxShadow: '0 20px 40px rgba(135, 206, 250, 0.2)',
-                  position: 'relative'
+                  position: 'relative',
+                  maxWidth: { xs: '100%', md: '90%' },
+                  mx: 'auto'
                 }}
               >
                 {/* Gambar Himmel */}
@@ -153,7 +166,16 @@ const ProfileSection = () => {
           </Grid>
           
           <Grid item xs={12} md={6}>
-            <Box className="scroll-hidden stagger-children">
+            <Box 
+              className="scroll-hidden stagger-children"
+              sx={{
+                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                p: { xs: 3, md: 4 },
+                borderRadius: '16px',
+                backdropFilter: 'blur(5px)',
+                boxShadow: '0 10px 30px rgba(135, 206, 250, 0.15)',
+              }}
+            >
               <Typography variant="h4" gutterBottom fontWeight={600} color={theme.palette.primary.main}>
                 Sang Pemimpin Legendaris
               </Typography>

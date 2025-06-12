@@ -101,3 +101,189 @@ section, [id] {
 .img-bg-section:hover {
   background-size: 110% 110%;
 }
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  /* Smaller section padding on mobile */
+  section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  
+  /* Adjusted font sizes for mobile */
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  h2 {
+    font-size: 2rem !important;
+  }
+  
+  /* Fix for background attachment on iOS */
+  .background-fixed {
+    background-attachment: scroll !important;
+  }
+  
+  /* Reduced animation for better performance */
+  .scroll-hidden {
+    filter: blur(0);
+  }
+}
+
+/* Card consistency styles */
+.equal-height-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.equal-height-card .card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.equal-height-card .card-actions {
+  margin-top: auto;
+}
+
+/* Fixed aspect ratio containers */
+.aspect-ratio-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  overflow: hidden;
+}
+
+.aspect-ratio-container > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Helper classes for consistent spacing */
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: 0.5rem !important; }
+.mb-2 { margin-bottom: 1rem !important; }
+.mb-3 { margin-bottom: 1.5rem !important; }
+.mb-4 { margin-bottom: 2rem !important; }
+.mb-5 { margin-bottom: 3rem !important; }
+
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: 0.5rem !important; }
+.mt-2 { margin-top: 1rem !important; }
+.mt-3 { margin-top: 1.5rem !important; }
+.mt-4 { margin-top: 2rem !important; }
+.mt-5 { margin-top: 3rem !important; }
+
+.mx-auto { margin-left: auto !important; margin-right: auto !important; }
+
+/* Text truncation classes */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Wrapper cards with consistent styling */
+.content-wrapper {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(135, 206, 250, 0.15);
+  backdrop-filter: blur(5px);
+}
+
+/* Timeline customization */
+.timeline-stepper .MuiStepLabel-iconContainer {
+  padding-right: 12px;
+}
+
+.timeline-stepper .MuiStepConnector-line {
+  min-height: 40px;
+  border-color: rgba(135, 206, 250, 0.6);
+}
+
+/* Animation delay utility classes */
+.delay-0 { animation-delay: 0s !important; transition-delay: 0s !important; }
+.delay-1 { animation-delay: 0.1s !important; transition-delay: 0.1s !important; }
+.delay-2 { animation-delay: 0.2s !important; transition-delay: 0.2s !important; }
+.delay-3 { animation-delay: 0.3s !important; transition-delay: 0.3s !important; }
+.delay-4 { animation-delay: 0.4s !important; transition-delay: 0.4s !important; }
+.delay-5 { animation-delay: 0.5s !important; transition-delay: 0.5s !important; }
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(45deg, #1E90FF, #87CEFA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* Icon styles for consistency */
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 70px;
+  height: 70px;
+  position: relative;
+}
+
+.icon-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(135, 206, 250, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.icon-container:hover img {
+  transform: scale(1.1);
+}
+
+/* Custom cursor styles */
+.cursor-hidden {
+  cursor: none;
+}
+
+/* Image hover effects */
+.image-hover-effect {
+  overflow: hidden;
+}
+
+.image-hover-effect img {
+  transition: transform 0.5s ease;
+}
+
+.image-hover-effect:hover img {
+  transform: scale(1.05);
+}
+
+/* Section transitions */
+.section-transition {
+  position: relative;
+  height: 100px;
+  margin-top: -100px;
+  z-index: 1;
+  pointer-events: none;
+}

@@ -20,12 +20,24 @@ const Footer = () => {
   return (
     <Box 
       sx={{ 
-        bgcolor: '#1a1a2e', 
-        color: 'white',
         position: 'relative',
         overflow: 'hidden',
         pt: 8,
-        pb: 4
+        pb: 4,
+        backgroundImage: 'url("/images/backgrounds/footer-bg.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center bottom',
+        backgroundAttachment: { xs: 'scroll', md: 'fixed' }, // Disable fixed background on mobile
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(26, 26, 46, 0.95)',
+          zIndex: 0,
+        },
       }}
     >
       {/* Decorative elements */}
@@ -38,6 +50,7 @@ const Footer = () => {
           height: '300px',
           borderRadius: '50%',
           background: `radial-gradient(circle, rgba(135,206,250,0.1) 0%, rgba(0,0,0,0) 70%)`,
+          zIndex: 1,
         }}
       />
       
@@ -50,10 +63,11 @@ const Footer = () => {
           height: '200px',
           borderRadius: '50%',
           background: `radial-gradient(circle, rgba(135,206,250,0.05) 0%, rgba(0,0,0,0) 70%)`,
+          zIndex: 1,
         }}
       />
 
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, color: 'white' }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <motion.div

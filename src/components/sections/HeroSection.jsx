@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, Typography, Container, Button } from '@mui/material';
+import { Box, Typography, Container, Button, useMediaQuery, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import gsap from 'gsap';
 
 const HeroSection = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const heroRef = useRef(null);
   const particlesRef = useRef(null);
 
@@ -12,7 +14,7 @@ const HeroSection = () => {
     // Animasi background particles
     if (particlesRef.current) {
       const particles = [];
-      const numParticles = 50;
+      const numParticles = isMobile ? 30 : 50; // Fewer particles on mobile
       
       for (let i = 0; i < numParticles; i++) {
         particles.push({
@@ -76,7 +78,7 @@ const HeroSection = () => {
         window.removeEventListener('resize', handleResize);
       };
     }
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     // Add scroll-based opacity effect for parallax
@@ -123,7 +125,7 @@ const HeroSection = () => {
         backgroundImage: 'url("/images/backgrounds/hero-bg.jpeg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        backgroundAttachment: { xs: 'scroll', md: 'fixed' }, // Disable fixed background on mobile
         overflow: 'hidden',
         '&::before': {
           content: '""',
@@ -132,7 +134,7 @@ const HeroSection = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'linear-gradient(to bottom right,rgba(0, 0, 0, 0.2))',
+          background: 'linear-gradient(to bottom right)',
           zIndex: 1
         },
         '&::after': {
@@ -142,7 +144,7 @@ const HeroSection = () => {
           left: 0,
           right: 0,
           height: '10px',
-          background: 'linear-gradient(to bottom, rgba(135, 206, 250, 0) 0%, rgba(135, 206, 250, 0.2) 10%)',
+          background: 'linear-gradient(to bottom, rgba(135, 206, 250, 0) 0%, rgba(135, 206, 250, 0.8) 100%)',
           zIndex: 2,
         }
       }}
@@ -213,7 +215,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
               <Button
                 variant="contained"
                 size="large"
@@ -222,10 +224,11 @@ const HeroSection = () => {
                   bgcolor: 'white',
                   color: '#1E90FF',
                   '&:hover': {
-                    bgcolor: 'rgba(255,255,255,0.1)',
+                    bgcolor: 'rgba(255,255,255,0.9)',
                   },
                   px: 4,
                   py: 1.5,
+                  mb: { xs: 2, sm: 0 } // Margin bottom on small devices
                 }}
               >
                 Kenali Himmel

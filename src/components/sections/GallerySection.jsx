@@ -10,7 +10,8 @@ import {
   Modal,
   Fade,
   IconButton,
-  useTheme
+  useTheme,
+  useMediaQuery
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { motion } from 'framer-motion';
@@ -20,25 +21,25 @@ const galleryImages = [
   {
     id: 1,
     title: "Himmel sebagai Pahlawan",
-    description: "Himmel memimpin kelompoknya melawan Raja Iblis gatau sih detailnya gimana",
+    description: "Himmel memimpin kelompoknya melawan Raja Iblis",
     image: "/images/himmel/himmel-1.jpeg"
   },
   {
     id: 2,
     title: "Saat-saat Bersama Tim",
-    description: "Himmel bersama Frieren, Heiter, dan Eisen kalo gasalah pas udah ngalahin Raja Iblis",
+    description: "Himmel bersama Frieren, Heiter, dan Eisen",
     image: "/images/himmel/himmel-2.jpeg"
   },
   {
     id: 3,
-    title: "Himmel?",
-    description: "Mikirin apaa yaa si himmel kunnnn iniii? mikirin freiren tuhhh",
+    title: "Himmel Himmel Himmel",
+    description: "All About Himmel Kunnnn",
     image: "/images/himmel/himmel-3.jpeg"
   },
   {
     id: 4,
-    title: "Himmel senyum ke siapa nichhh hehe",
-    description: "Ini bukannya Himmel sama freiren pas di taman bunga ya?",
+    title: "Himmel kunnnn",
+    description: "Manis banget ya senyumannya himmel",
     image: "/images/himmel/himmel-4.jpeg"
   },
   {
@@ -50,13 +51,14 @@ const galleryImages = [
   {
     id: 6,
     title: "Perpisahan",
-    description: "Saat-saat terakhir Himmel bersama teman-temannya dan nooo disini freiren nangis",
+    description: "Saat-saat terakhir Himmel bersama teman-temannya",
     image: "/images/himmel/himmel-6.jpeg"
   }
 ];
 
 const GallerySection = () => {
   const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const sectionRef = useRef(null);
@@ -101,7 +103,7 @@ const GallerySection = () => {
         backgroundImage: 'url("/images/backgrounds/gallery-bg.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        backgroundAttachment: { xs: 'scroll', md: 'fixed' }, // Fix background resizing on mobile
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -109,7 +111,7 @@ const GallerySection = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(255, 255, 255, 0.3)',
+          backgroundColor: 'rgba(255, 255, 255, 0.6)',
           backdropFilter: 'blur(3px)',
           zIndex: 0,
         },
@@ -149,58 +151,107 @@ const GallerySection = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={3}>
-          {galleryImages.map((item, index) => (
-            <Grid item xs={12} sm={6} md={4} key={item.id}>
-              <Box className="scroll-hidden" sx={{ height: '100%', transitionDelay: `${index * 0.1}s` }}>
-                <Card 
+        {/* Container untuk centering di desktop */}
+        <Box sx={{ 
+          maxWidth: isDesktop ? '1100px' : 'auto',
+          mx: 'auto'
+        }}>
+          <Grid container spacing={3} justifyContent="center">
+            {galleryImages.map((item, index) => (
+              <Grid item xs={12} sm={6} md={4} key={item.id} sx={{ display: 'flex' }}>
+                <Box 
+                  className="scroll-hidden" 
                   sx={{ 
+                    width: '100%',
                     height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    borderRadius: '16px',
-                    overflow: 'hidden',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-10px)',
-                      boxShadow: '0 10px 30px rgba(135, 206, 250, 0.3)',
-                      '& .MuiCardMedia-root': {
-                        transform: 'scale(1.05)'
-                      }
-                    }
+                    transitionDelay: `${index * 0.1}s`,
+                    display: 'flex'
                   }}
-                  onClick={() => handleOpen(item)}
                 >
-                  <Box sx={{ overflow: 'hidden', position: 'relative', paddingTop: '56.25%' /* 16:9 Aspect Ratio */ }}>
-                    <CardMedia
-                      component="img"
-                      image={item.image}
-                      alt={item.title}
+                  <Card 
+                    sx={{ 
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      borderRadius: '16px',
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-10px)',
+                        boxShadow: '0 10px 30px rgba(135, 206, 250, 0.3)',
+                        '& .MuiCardMedia-root': {
+                          transform: 'scale(1.05)'
+                        }
+                      }
+                    }}
+                    onClick={() => handleOpen(item)}
+                  >
+                    <Box 
                       sx={{ 
-                        transition: 'transform 0.5s ease',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
+                        overflow: 'hidden', 
+                        position: 'relative', 
+                        // Fixed aspect ratio for consistent sizing
+                        paddingTop: '56.25%' /* 16:9 Aspect Ratio */ 
                       }}
-                    />
-                  </Box>
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography variant="h6" component="div" gutterBottom fontWeight={600}>
-                      {item.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {item.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
+                    >
+                      <CardMedia
+                        component="img"
+                        image={item.image}
+                        alt={item.title}
+                        sx={{ 
+                          transition: 'transform 0.5s ease',
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                      />
+                    </Box>
+                    <CardContent sx={{ 
+                      flexGrow: 1,
+                      height: { xs: 'auto', md: '120px' }, // Fixed height for content on desktop
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between'
+                    }}>
+                      <Typography 
+                        variant="h6" 
+                        component="div" 
+                        gutterBottom 
+                        fontWeight={600}
+                        sx={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 1,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis'
+                        }}
+                      >
+                        {item.title}
+                      </Typography>
+                      <Typography 
+                        variant="body2" 
+                        color="text.secondary"
+                        sx={{
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis'
+                        }}
+                      >
+                        {item.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </Container>
 
       <Modal

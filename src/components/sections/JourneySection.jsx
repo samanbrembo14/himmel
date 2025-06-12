@@ -1,11 +1,24 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, Container, Typography, Stepper, Step, StepLabel, StepContent, Paper, useTheme, useMediaQuery } from '@mui/material';
+import { 
+  Box, 
+  Container, 
+  Typography, 
+  Stepper, 
+  Step, 
+  StepLabel, 
+  StepContent, 
+  Paper, 
+  useTheme, 
+  useMediaQuery,
+  Card
+} from '@mui/material';
 import { motion } from 'framer-motion';
 import { journeyTimeline } from '../../data/HimmelData';
 
 const JourneySection = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const sectionRef = useRef(null);
   
   useEffect(() => {
@@ -39,6 +52,7 @@ const JourneySection = () => {
         backgroundImage: 'url("/images/backgrounds/journey-bg.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundAttachment: { xs: 'scroll', md: 'fixed' }, // Fix background resizing on mobile
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -46,7 +60,7 @@ const JourneySection = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(255, 255, 255, 0.6)',
+          backgroundColor: 'rgba(255, 255, 255, 0.4)',
           backdropFilter: 'blur(2px)',
           zIndex: 0,
         },
@@ -86,8 +100,30 @@ const JourneySection = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ maxWidth: 800, mx: 'auto' }} className="scroll-hidden">
-          <Stepper orientation={isMobile ? "vertical" : "vertical"} sx={{ mb: 4 }}>
+        {/* Container untuk timeline dengan max-width untuk desktop */}
+        <Box 
+          sx={{ 
+            maxWidth: isDesktop ? '800px' : 'auto',
+            mx: 'auto',
+            // Tambahkan background card untuk seluruh timeline
+            bgcolor: 'rgba(255, 255, 255, 0.4)',
+            borderRadius: '20px',
+            p: 4,
+            boxShadow: '0 10px 30px rgba(135, 206, 250, 0.15)',
+            backdropFilter: 'blur(10px)'
+          }} 
+          className="scroll-hidden"
+        >
+          <Stepper 
+            orientation={isMobile ? "vertical" : "vertical"} 
+            sx={{ 
+              mb: 4,
+              '& .MuiStepConnector-line': {
+                borderColor: theme.palette.primary.light,
+                borderLeftWidth: 2,
+              }
+            }}
+          >
             {journeyTimeline.map((item, index) => (
               <Step key={item.id} active={true}>
                 <StepLabel
@@ -97,6 +133,11 @@ const JourneySection = () => {
                       '&.Mui-active': {
                         color: theme.palette.primary.main,
                       },
+                      width: 40,
+                      height: 40,
+                      borderRadius: '50%',
+                      border: `2px solid ${theme.palette.primary.main}`,
+                      background: 'white'
                     }
                   }}
                 >
@@ -109,30 +150,61 @@ const JourneySection = () => {
                   >
                     {item.title}
                   </Typography>
-                  <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+                  <Typography 
+                    variant="subtitle2" 
+                    sx={{ 
+                      color: 'text.secondary',
+                      fontWeight: 500
+                    }}
+                  >
                     {item.year}
                   </Typography>
                 </StepLabel>
                 <StepContent>
                   <Box sx={{ mb: 2 }} className="scroll-hidden" style={{ transitionDelay: `${index * 0.2}s` }}>
-                    <Paper 
+                    {/* Card wrapper untuk setiap item timeline */}
+                    <Card
                       elevation={0}
-                      sx={{ 
-                        p: 3, 
-                        backgroundColor: 'rgba(135, 206, 250, 0.05)',
+                      sx={{
+                        p: 3,
+                        backgroundColor: 'white',
+                        borderRadius: '12px',
+                        boxShadow: '0 5px 15px rgba(135, 206, 250, 0.2)',
                         borderLeft: `4px solid ${theme.palette.primary.main}`,
-                        borderRadius: '0 8px 8px 0'
+                        transition: 'transform 0.3s ease',
+                        '&:hover': {
+                          transform: 'translateY(-5px)',
+                          boxShadow: '0 8px 20px rgba(135, 206, 250, 0.3)',
+                        }
                       }}
                     >
-                      <Typography>{item.description}</Typography>
-                    </Paper>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: 'text.primary',
+                          lineHeight: 1.6
+                        }}
+                      >
+                        {item.description}
+                      </Typography>
+                    </Card>
                   </Box>
                 </StepContent>
               </Step>
             ))}
           </Stepper>
 
-          <Box sx={{ mt: 6, p: 4, borderRadius: 4, bgcolor: 'rgba(135, 206, 250, 0.1)' }} className="scroll-hidden">
+          <Box 
+            sx={{ 
+              mt: 6,
+              p: 4,
+              borderRadius: '16px',
+              bgcolor: 'rgba(135, 206, 250, 0.1)',
+              border: '1px solid rgba(135, 206, 250, 0.2)',
+              boxShadow: '0 8px 20px rgba(135, 206, 250, 0.1)'
+            }} 
+            className="scroll-hidden"
+          >
             <Typography
               variant="h5"
               gutterBottom
